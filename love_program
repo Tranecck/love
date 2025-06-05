@@ -1,0 +1,119 @@
+import time
+import sys
+import os
+
+# Cores ANSI para terminal
+class Colors:
+    RED = '\033[91m'
+    PINK = '\033[95m'
+    CYAN = '\033[96m'
+    RESET = '\033[0m'
+    BOLD = '\033[1m'
+
+def slow_print(text, delay=0.05, color=Colors.RESET):
+    for char in text:
+        sys.stdout.write(f"{color}{char}{Colors.RESET}")
+        sys.stdout.flush()
+        time.sleep(delay)
+    print()
+
+def heart_ascii():
+    heart = f"""
+{Colors.PINK}      *****       *****     
+   *********** ***********  
+  ************************* 
+ *************************** 
+ *************************** 
+  *************************  
+   ***********************   
+     *******************     
+       ***************       
+         ***********         
+           *******           
+             ***             
+              *{Colors.RESET}
+    """
+    print(heart)
+
+def poem():
+    verses = [
+        "Em meio a loops e condições,",
+        "meu coração só compila por você.",
+        "Se amor fosse linguagem,",
+        "você seria meu import preferido.",
+        "",
+        "Nos vetores da vida,",
+        "você é o índice que faz sentido.",
+        "Nos testes booleanos do destino,",
+        "a única verdade é: eu + você == ❤️"
+    ]
+    for verse in verses:
+        slow_print(verse, delay=0.08, color=Colors.CYAN)
+        time.sleep(0.5)
+
+def clear():
+    os.system("cls" if os.name == "nt" else "clear")
+
+def compatibility_test():
+    slow_print("Vamos testar nossa compatibilidade com um pequeno quiz 💡", color=Colors.BOLD)
+    time.sleep(1)
+    score = 0
+
+    questions = [
+        {
+            "q": "Você prefere back-end, front-end ou full-stack?",
+            "a": ["back-end", "front-end", "full-stack"],
+            "ideal": "full-stack"
+        },
+        {
+            "q": "Você gosta de Python? (s/n)",
+            "a": ["s", "n"],
+            "ideal": "s"
+        },
+        {
+            "q": "Qual sua IDE favorita? (VSCode/PyCharm/Outro)",
+            "a": ["vscode", "pycharm", "outro"],
+            "ideal": "pycharm"
+        }
+    ]
+
+    for item in questions:
+        slow_print(f"\n{item['q']}", delay=0.06, color=Colors.PINK)
+        answer = input("👉 ").strip().lower()
+        if answer == item["ideal"]:
+            slow_print("Perfeito! ❤️", color=Colors.CYAN)
+            score += 1
+        else:
+            slow_print("Ok! Ninguém é perfeito... 😅", color=Colors.CYAN)
+
+    if score == 3:
+        slow_print("\nConclusão: Você é a soulmate do meu código-fonte!", color=Colors.BOLD)
+    elif score == 2:
+        slow_print("\nTemos um bom match de código, hein? 😉", color=Colors.BOLD)
+    else:
+        slow_print("\nTalvez precise rodar mais uns testes A/B... 😅", color=Colors.BOLD)
+
+def proposal():
+    slow_print("\nAgora... uma pergunta final:", delay=0.08, color=Colors.RED)
+    time.sleep(1)
+    slow_print("Você aceitaria iniciar uma jornada de commits na vida real comigo? 💍", delay=0.08, color=Colors.PINK)
+    answer = input("\nDigite 'sim' para clonar esse repositório de amor: ").strip().lower()
+    if answer == "sim":
+        slow_print("\n❤️ Git init no nosso repositório de amor! ❤️", color=Colors.CYAN)
+        heart_ascii()
+        slow_print("Commit inicial: 'Você na minha vida'.", color=Colors.BOLD)
+    else:
+        slow_print("\nTudo bem... talvez numa próxima branch da vida. 🌱", color=Colors.CYAN)
+
+def main():
+    clear()
+    slow_print("Executando script romântico...", delay=0.05, color=Colors.BOLD)
+    time.sleep(1)
+    clear()
+    heart_ascii()
+    poem()
+    compatibility_test()
+    proposal()
+
+if __name__ == "__main__":
+    main()
