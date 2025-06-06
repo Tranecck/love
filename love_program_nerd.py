@@ -1,22 +1,35 @@
 import time
 import sys
 import os
+import pyttsx3
 
+# Inicializa a voz (Text-to-Speech)
+tts = pyttsx3.init()
+tts.setProperty('rate', 155)  # Velocidade da fala
+tts.setProperty('volume', 1.0)  # Volume (0.0 a 1.0)
+
+# Cores para o terminal
 class Colors:
     RED = '\033[91m'
     PINK = '\033[95m'
     CYAN = '\033[96m'
-    YELLOW = '\033[93m'
     GREEN = '\033[92m'
+    YELLOW = '\033[93m'
     RESET = '\033[0m'
     BOLD = '\033[1m'
 
-def slow_print(text, delay=0.05, color=Colors.RESET):
+def speak(text):
+    tts.say(text)
+    tts.runAndWait()
+
+def slow_print(text, delay=0.05, color=Colors.RESET, speak_text=False):
     for char in text:
         sys.stdout.write(f"{color}{char}{Colors.RESET}")
         sys.stdout.flush()
         time.sleep(delay)
     print()
+    if speak_text:
+        speak(text)
 
 def clear():
     os.system("cls" if os.name == "nt" else "clear")
@@ -37,7 +50,6 @@ def heart_ascii():
               ***             
                *{Colors.RESET}
     """
-
     print(heart)
 
 def nerd_poem():
@@ -49,61 +61,62 @@ def nerd_poem():
         "E mesmo nos conflitos, eu faria um rebase só pra te ter perto.",
         "",
         "Se um dia você forkou meu coração,",
-        "hoje te convido a fazer parte da org chamada: 'nós'."
+        "hoje te convido a fazer parte da org chamada: nós."
     ]
     for line in verses:
-        slow_print(line, delay=0.08, color=Colors.CYAN)
+        slow_print(line, delay=0.08, color=Colors.CYAN, speak_text=True)
         time.sleep(0.5)
 
 def compatibility_test():
     score = 0
     questions = [
         {
-            "q": "Se você fosse um algoritmo, qual seria? (bubble/merge/quick)",
+            "q": "Se você fosse um algoritmo, qual seria? (bubble, merge ou quick)",
             "ideal": "quick"
         },
         {
-            "q": "Você prefere amor com tipagem dinâmica ou estática? (dinamica/estatica)",
+            "q": "Você prefere amor com tipagem dinâmica ou estática?",
             "ideal": "dinamica"
         },
         {
-            "q": "Qual desses é mais romântico? (git/terminal/stack overflow)",
+            "q": "Qual desses é mais romântico? (git, terminal ou stack overflow)",
             "ideal": "git"
         }
     ]
 
-    slow_print("\nIniciando teste de compatibilidade com base nos nossos dados 💾", color=Colors.BOLD)
+    slow_print("\nIniciando teste de compatibilidade com base nos nossos dados 💾", color=Colors.BOLD, speak_text=True)
     time.sleep(1)
     for item in questions:
-        slow_print(f"\n{item['q']}", color=Colors.PINK)
+        slow_print(f"\n{item['q']}", color=Colors.PINK, speak_text=True)
         answer = input("👉 ").strip().lower()
         if answer == item["ideal"]:
-            slow_print("✔️ Código aceito!", color=Colors.GREEN)
+            slow_print("✔️ Código aceito!", color=Colors.GREEN, speak_text=True)
             score += 1
         else:
-            slow_print("⚠️ Hum... código com warnings 😅", color=Colors.YELLOW)
+            slow_print("⚠️ Hum... código com warnings 😅", color=Colors.YELLOW, speak_text=True)
 
     if score == 3:
-        slow_print("\n🎉 Match perfeito! Você passou no CI do meu coração! 💚", color=Colors.BOLD)
+        slow_print("\n🎉 Match perfeito! Você passou no CI do meu coração!", color=Colors.BOLD, speak_text=True)
     else:
-        slow_print("\nTemos algumas diferenças, mas todo bom sistema se adapta. 😉", color=Colors.BOLD)
+        slow_print("\nTemos algumas diferenças, mas todo bom sistema se adapta.", color=Colors.BOLD, speak_text=True)
 
 def pull_request_love():
-    slow_print("\n\n📤 Pull Request: amor.py -> main", color=Colors.CYAN)
+    slow_print("\n📤 Pull Request: amor.py -> main", color=Colors.CYAN, speak_text=True)
     time.sleep(1)
-    slow_print("Status: Esperando aprovação...", delay=0.07, color=Colors.YELLOW)
+    slow_print("Status: Esperando aprovação...", delay=0.07, color=Colors.YELLOW, speak_text=True)
     time.sleep(1.5)
     answer = input("\nAceita dar merge nos nossos sentimentos? (sim/não): ").strip().lower()
     if answer == "sim":
-        slow_print("🔁 Merge realizado com sucesso! ❤️", color=Colors.RED)
+        slow_print("🔁 Merge realizado com sucesso! ❤️", color=Colors.RED, speak_text=True)
         heart_ascii()
-        slow_print("Commit message: 'feat: relacionamento estável e feliz 😍'", color=Colors.GREEN)
+        slow_print("Commit message: 'feat: relacionamento estável e feliz 😍'", color=Colors.GREEN, speak_text=True)
     else:
-        slow_print("😢 Pull request rejeitado. Mas sempre há espaço para uma nova branch na vida...", color=Colors.YELLOW)
+        slow_print("😢 Pull request rejeitado. Mas sempre há espaço para uma nova branch na vida...", color=Colors.YELLOW, speak_text=True)
 
 def main():
     clear()
-    slow_print("Carregando script romântico nerd para programadoras...", delay=0.05, color=Colors.BOLD)
+    slow_print("Carregando script romântico nerd com voz...", delay=0.05, color=Colors.BOLD)
+    speak("Iniciando o script romântico nerd.")
     time.sleep(1)
     clear()
     heart_ascii()
